@@ -1,18 +1,24 @@
 import tkinter as tk
 from tkinter import messagebox
-
+import time
 
 #ei tea mis class teeb, lihtsam siin suhelda GUI ja programmi vahel
 class MyGUI:
+    
     def __init__(self):
         #root, algus
         self.root = tk.Tk()
+        
+        
+        self.clock_label = tk.Label(self.root, text="")
+        self.clock_label.pack(padx=20, pady=20)
+        
+        self.update_time()
         
         self.label = tk.Label(self.root, text="Your Message", font=("Arial", 18))
         self.label.pack(padx=10,pady=10)
         #Saab lugeda nupu vajutust
         self.textbox = tk.Text(self.root, height=5, font=("Arial", 18))
-        
         self.textbox.bind("<KeyPress>", self.shortcut)
         self.textbox.pack(padx=10, pady=10)
         
@@ -38,7 +44,8 @@ class MyGUI:
         else:
             #messagebox teeb uue GUI sisestatud tekstiga
             messagebox.showinfo(title="Message", message=self.textbox.get("1.0", tk.END))
-    
+        
+
     #kui mingi nup vajutatakse tekib event, seda saab lugeda
     def shortcut(self, event):
         #print(event)
@@ -47,6 +54,11 @@ class MyGUI:
         #control enter kombinatsioon saadud kasutades ülemisi käske
         if event.state == 4 and event.keysym == "Return":
             self.show_message()
-
+    
+    def update_time(self):
+        current_time = time.strftime('%H:%M:%S')
+        self.clock_label.config(text=current_time)
+        self.root.after(1000, self.update_time)
+    
 MyGUI()
     
