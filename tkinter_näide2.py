@@ -9,10 +9,10 @@ class MyGUI:
         #root, algus
         self.root = tk.Tk()
         
-        
+        #näita kella
         self.clock_label = tk.Label(self.root, text="")
         self.clock_label.pack(padx=20, pady=20)
-        
+        #uuenda kella
         self.update_time()
         
         self.label = tk.Label(self.root, text="Your Message", font=("Arial", 18))
@@ -55,6 +55,7 @@ class MyGUI:
         if event.state == 4 and event.keysym == "Return":
             self.show_message()
     
+    #kella uuendamise definitsioon
     def update_time(self):
         current_time = time.strftime('%H:%M:%S')
         self.clock_label.config(text=current_time)
