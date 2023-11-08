@@ -7,7 +7,7 @@ root.geometry("500x500")
 #pealkiri üleval
 root.title("My First GUI")
 
-#pealkiri definitsioon
+#tekst definitsioon
 label = tk.Label(root, text="Hello World!", font=("Arial", 18))
 #pealkirja kuvamine
 label.pack()
