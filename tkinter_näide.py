@@ -18,7 +18,7 @@ textbox = tk.Text(root, font=("Arial", 16), height=3)
 textbox.pack(padx=10)
 
 #1 rida väike kirjutusala
-myentry = tk.Entry(root)
+myentry = tk.Entry(root, font=("Arial", 16))
 myentry.pack()
 
 #nupp
