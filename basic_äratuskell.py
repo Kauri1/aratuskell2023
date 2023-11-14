@@ -17,7 +17,7 @@ clock_label = tk.Label(root)
 clock_label.pack()
 
 
-#uuendab aega
+#aja uuendamise käivitamine
 update_time()
 
 
@@ -81,6 +81,7 @@ def aratus_kontroll():
 aratus_label = tk.Label(root, text="maga maga", font=("Arial", 50))
 aratus_label.pack()
 
+#äratuse kontrollimse käivitamine
 aratus_kontroll()
 
 root.mainloop()
