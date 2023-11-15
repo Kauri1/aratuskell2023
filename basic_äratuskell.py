@@ -1,5 +1,6 @@
 import tkinter as tk
 import datetime
+import winsound
 
 root = tk.Tk()
 
@@ -68,13 +69,24 @@ check = tk.Button(root, text="pane aeg", font=("Arial", 16), command = maara_aeg
 check.pack()
 
 
+    
+
+issound = False
+
 #siin kontrollitakse, kas on äratus või mitte
 def aratus_kontroll():
+    global issound
     if current_time > aratuse_aeg:
         aratus_label.config(text="ääärraaatuuuss", font=("Arial",50))
         print("ääratuus")
+        if issound == False:
+            winsound.PlaySound("Morning-Routine-Lofi-Study-Music(chosic.com).wav", winsound.SND_LOOP | winsound.SND_ASYNC)
+            issound = True
+
     else:
         aratus_label.config(text="maga maga", font=("Arial",50))
+        winsound.PlaySound(None , winsound.SND_ASYNC)
+        issound = False
     root.after(1000, aratus_kontroll)
 
 #Label kus kuvab, kas äratus, või mitte
