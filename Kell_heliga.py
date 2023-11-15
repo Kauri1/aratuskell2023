@@ -1,8 +1,11 @@
-import tkinter as tk
-import datetime
 from pygame import mixer
 
+
+import tkinter as tk
+import datetime
+
 root = tk.Tk()
+
 mixer.init()
 lugu = "Morning-Routine-Lofi-Study-Music(chosic.com).mp3"
 
@@ -27,6 +30,7 @@ clock_label.pack()
 
 #aja uuendamise käivitamine
 update_time()
+
 
 pandud_label = tk.Label(root, text="Kell äratab: ", font=("Arial", 25))
 pandud_label.pack()
@@ -74,18 +78,22 @@ def maara_aeg():
 check = tk.Button(root, text="pane aeg", font=("Arial", 16), command = maara_aeg)
 check.pack()
 
+issound = False
 
 #siin kontrollitakse, kas on äratus või mitte
 def aratus_kontroll():
-    if current_time == aratuse_aeg:
-            aratus_label.config(text=f"{lugu}", font=("Arial",50))
-            print("Music starting")
+    global issound
+    if current_time >= aratuse_aeg:
+        aratus_label.config(text="äratus, niga", font=("Arial",50))
+        if issound == False:
+            print("muusika")
             play()
-    else:      
-        aratus_label.config(text="maga maga", font=("Arial",50))
-        print("Stop1")
+            issound = True
+    else:
         mixer.music.stop()
-    root.after(1000, aratus_kontroll())
+        aratus_label.config(text="maga maga", font=("Arial",50))
+        issound = False
+    root.after(1000, aratus_kontroll)
 
 #Label kus kuvab, kas äratus, või mitte
 aratus_label = tk.Label(root, text="maga maga", font=("Arial", 50))
