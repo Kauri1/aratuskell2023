@@ -98,18 +98,19 @@ def aratus_kontroll():
 
         if läbitud == True:
             is_ül=False
+            #jätab paneb heli None
+            winsound.PlaySound(None , winsound.SND_ASYNC)
+            aratus_label.config(text="Sisesta uus äratus", font=("Arial",50))
             print("nüüd on läbi")
             
         
-    else:
+    elif läbitud != True:
         aratus_label.config(text="maga maga", font=("Arial",50))
-        #jätab paneb heli None
-        winsound.PlaySound(None , winsound.SND_ASYNC)
+
         issound = False
     root.after(1000, aratus_kontroll)
-
 #Label kus kuvab, kas äratus, või mitte
-aratus_label = tk.Label(root, text="maga maga", font=("Arial", 50))
+aratus_label = tk.Label(root, text="Sisesta äratus", font=("Arial", 50))
 aratus_label.pack()
 
 #äratuse kontrollimse käivitamine
