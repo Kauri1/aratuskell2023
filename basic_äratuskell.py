@@ -78,7 +78,7 @@ def aratus_kontroll():
         print("ääratuus")
         #Kui pole heli, siis mängi heli
         if issound == False:
-            winsound.PlaySound("Morning-Routine-Lofi-Study-Music(chosic.com).wav", winsound.SND_LOOP | winsound.SND_ASYNC)
+            winsound.PlaySound("helid/Morning-Routine-Lofi-Study-Music(chosic.com).wav", winsound.SND_LOOP | winsound.SND_ASYNC)
             issound = True
     else:
         aratus_label.config(text="maga maga", font=("Arial",50))
