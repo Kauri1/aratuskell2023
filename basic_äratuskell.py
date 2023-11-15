@@ -2,6 +2,11 @@ import tkinter as tk
 import datetime
 import winsound
 
+import matemaatika
+
+
+
+#siit algab GUI
 root = tk.Tk()
 
 #kella definitsioon
@@ -54,12 +59,14 @@ aratuse_label.config(text=aratuse_aeg.strftime('%d-%m-%y %H:%M:%S'), font=("Aria
 
 #siin vahetatakse äratuse aega
 def maara_aeg():
-    global aratuse_aeg
+    global aratuse_aeg, läbitud
+
+    läbitud = False
+
     aratuse_kell = kella_panek.get()
     aratuse_kuupäev = kuupäeva_panek.get()
     print(aratuse_kuupäev+" "+aratuse_kell)
     aratuse_aeg = datetime.datetime.strptime(aratuse_kuupäev+" "+aratuse_kell, '%d-%m-%y %H:%M:%S')
-    #aratuse_aeg = datetime.datetime.strptime(aratuse_tekst, '%d-%m-%y %H:%M:%S')
     aratuse_label.config(text=aratuse_aeg.strftime('%d-%m-%y %H:%M:%S'), font=("Arial", 50))
 
 
@@ -68,29 +75,42 @@ def maara_aeg():
 check = tk.Button(root, text="pane aeg", font=("Arial", 16), command = maara_aeg)
 check.pack()
 
-
-    
-
+# Kas on heli muutuja
 issound = False
+is_ül = False
+läbitud = True
 
 #siin kontrollitakse, kas on äratus või mitte
 def aratus_kontroll():
-    global issound
-    if current_time > aratuse_aeg:
+    global issound, is_ül, läbitud
+    if current_time > aratuse_aeg and läbitud == False:
         aratus_label.config(text="ääärraaatuuuss", font=("Arial",50))
         print("ääratuus")
-        if issound == False:
-            winsound.PlaySound("Morning-Routine-Lofi-Study-Music(chosic.com).wav", winsound.SND_LOOP | winsound.SND_ASYNC)
+        
+        #Kui pole heli, siis mängi heli
+        if issound == False and läbitud == False:
+            winsound.PlaySound("helid/mixkit-classic-alarm-995.wav", winsound.SND_LOOP | winsound.SND_ASYNC)
             issound = True
 
-    else:
+        if is_ül == False and läbitud == False:
+            läbitud = matemaatika.matemaatika()
+            is_ül = True
+
+        if läbitud == True:
+            is_ül=False
+            #jätab paneb heli None
+            winsound.PlaySound(None , winsound.SND_ASYNC)
+            aratus_label.config(text="Sisesta uus äratus", font=("Arial",50))
+            print("nüüd on läbi")
+            
+        
+    elif läbitud != True:
         aratus_label.config(text="maga maga", font=("Arial",50))
-        winsound.PlaySound(None , winsound.SND_ASYNC)
+
         issound = False
     root.after(1000, aratus_kontroll)
-
 #Label kus kuvab, kas äratus, või mitte
-aratus_label = tk.Label(root, text="maga maga", font=("Arial", 50))
+aratus_label = tk.Label(root, text="Sisesta äratus", font=("Arial", 50))
 aratus_label.pack()
 
 #äratuse kontrollimse käivitamine

@@ -22,7 +22,7 @@ root.geometry("500x400")
 mixer.init()# initialise the pygame
  
 def play():
-    mixer.music.load("Morning-Routine-Lofi-Study-Music(chosic.com).mp3")
+    mixer.music.load("helid/Morning-Routine-Lofi-Study-Music(chosic.com).mp3")
     mixer.music.play(loops=-1)
  
 title=tk.Label(root,text="GeeksforGeeks",bd=9,

@@ -7,7 +7,7 @@ import datetime
 root = tk.Tk()
 
 mixer.init()
-lugu = "Morning-Routine-Lofi-Study-Music(chosic.com).mp3"
+lugu = "helid/Morning-Routine-Lofi-Study-Music(chosic.com).mp3"
 
 #Muusika funkt.
 def play():
