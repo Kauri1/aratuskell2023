@@ -9,7 +9,7 @@ root = tk.Tk()
 mixer.init()
 lugu = "Morning-Routine-Lofi-Study-Music(chosic.com).mp3"
 
-#Muusika loop
+#Muusika funkt.
 def play():
     mixer.music.load(lugu)
     mixer.music.play(loops=-1)
@@ -86,6 +86,7 @@ def aratus_kontroll():
     if current_time >= aratuse_aeg:
         aratus_label.config(text="äratus, niga", font=("Arial",50))
         if issound == False:
+            #muusika
             print("muusika")
             play()
             issound = True
