@@ -83,7 +83,7 @@ läbitud = True
 #siin kontrollitakse, kas on äratus või mitte
 def aratus_kontroll():
     global issound, is_ül, läbitud
-    if current_time > aratuse_aeg:
+    if current_time > aratuse_aeg and läbitud == False:
         aratus_label.config(text="ääärraaatuuuss", font=("Arial",50))
         print("ääratuus")
         
@@ -92,7 +92,6 @@ def aratus_kontroll():
             winsound.PlaySound("helid/Morning-Routine-Lofi-Study-Music(chosic.com).wav", winsound.SND_LOOP | winsound.SND_ASYNC)
             issound = True
 
-        
         if is_ül == False and läbitud == False:
             läbitud = matemaatika.matemaatika()
             is_ül = True
