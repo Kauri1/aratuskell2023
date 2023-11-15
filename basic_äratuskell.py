@@ -59,7 +59,6 @@ def maara_aeg():
     aratuse_kuupäev = kuupäeva_panek.get()
     print(aratuse_kuupäev+" "+aratuse_kell)
     aratuse_aeg = datetime.datetime.strptime(aratuse_kuupäev+" "+aratuse_kell, '%d-%m-%y %H:%M:%S')
-    #aratuse_aeg = datetime.datetime.strptime(aratuse_tekst, '%d-%m-%y %H:%M:%S')
     aratuse_label.config(text=aratuse_aeg.strftime('%d-%m-%y %H:%M:%S'), font=("Arial", 50))
 
 
@@ -68,7 +67,7 @@ def maara_aeg():
 check = tk.Button(root, text="pane aeg", font=("Arial", 16), command = maara_aeg)
 check.pack()
 
-
+# Kas on heli muutuja
 issound = False
 
 #siin kontrollitakse, kas on äratus või mitte
@@ -77,12 +76,13 @@ def aratus_kontroll():
     if current_time > aratuse_aeg:
         aratus_label.config(text="ääärraaatuuuss", font=("Arial",50))
         print("ääratuus")
+        #Kui pole heli, siis mängi heli
         if issound == False:
             winsound.PlaySound("Morning-Routine-Lofi-Study-Music(chosic.com).wav", winsound.SND_LOOP | winsound.SND_ASYNC)
             issound = True
-
     else:
         aratus_label.config(text="maga maga", font=("Arial",50))
+        #jätab paneb heli None
         winsound.PlaySound(None , winsound.SND_ASYNC)
         issound = False
     root.after(1000, aratus_kontroll)
