@@ -69,8 +69,6 @@ check = tk.Button(root, text="pane aeg", font=("Arial", 16), command = maara_aeg
 check.pack()
 
 
-    
-
 issound = False
 
 #siin kontrollitakse, kas on äratus või mitte
