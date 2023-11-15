@@ -89,7 +89,7 @@ def aratus_kontroll():
         
         #Kui pole heli, siis mängi heli
         if issound == False and läbitud == False:
-            winsound.PlaySound("helid/Morning-Routine-Lofi-Study-Music(chosic.com).wav", winsound.SND_LOOP | winsound.SND_ASYNC)
+            winsound.PlaySound("helid/mixkit-classic-alarm-995.wav", winsound.SND_LOOP | winsound.SND_ASYNC)
             issound = True
 
         if is_ül == False and läbitud == False:
