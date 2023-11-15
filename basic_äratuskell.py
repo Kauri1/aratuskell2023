@@ -2,6 +2,11 @@ import tkinter as tk
 import datetime
 import winsound
 
+import matemaatika
+
+
+
+#siit algab GUI
 root = tk.Tk()
 
 #kella definitsioon
@@ -54,7 +59,10 @@ aratuse_label.config(text=aratuse_aeg.strftime('%d-%m-%y %H:%M:%S'), font=("Aria
 
 #siin vahetatakse äratuse aega
 def maara_aeg():
-    global aratuse_aeg
+    global aratuse_aeg, läbitud
+
+    läbitud = False
+
     aratuse_kell = kella_panek.get()
     aratuse_kuupäev = kuupäeva_panek.get()
     print(aratuse_kuupäev+" "+aratuse_kell)
@@ -69,17 +77,31 @@ check.pack()
 
 # Kas on heli muutuja
 issound = False
+is_ül = False
+läbitud = True
 
 #siin kontrollitakse, kas on äratus või mitte
 def aratus_kontroll():
-    global issound
+    global issound, is_ül, läbitud
     if current_time > aratuse_aeg:
         aratus_label.config(text="ääärraaatuuuss", font=("Arial",50))
         print("ääratuus")
+        
         #Kui pole heli, siis mängi heli
-        if issound == False:
+        if issound == False and läbitud == False:
             winsound.PlaySound("helid/Morning-Routine-Lofi-Study-Music(chosic.com).wav", winsound.SND_LOOP | winsound.SND_ASYNC)
             issound = True
+
+        
+        if is_ül == False and läbitud == False:
+            läbitud = matemaatika.matemaatika()
+            is_ül = True
+
+        if läbitud == True:
+            is_ül=False
+            print("nüüd on läbi")
+            
+        
     else:
         aratus_label.config(text="maga maga", font=("Arial",50))
         #jätab paneb heli None
