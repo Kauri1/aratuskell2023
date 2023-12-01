@@ -9,14 +9,46 @@ import matemaatika
 #siit algab GUI
 root = tk.Tk()
 
+
 #kella definitsioon
 def update_time():
-    global current_time
-    current_time = datetime.datetime.now()
-    clock_label.config(text=current_time.strftime('%d-%m-%y %H:%M:%S'), font=("Arial",50))
+    global current_time , iga_päev_var
+    if iga_päev_var.get() == 1:
+        current_time = datetime.datetime.now().time()
+    else:
+        current_time = datetime.datetime.now()
+    clock_label.config(text=datetime.datetime.now().strftime('%d-%m-%y %H:%M:%S'), font=("Arial",50))
     root.after(1000, update_time)
 
     print(current_time)
+
+def iga_päev_switch():
+    global aratuse_aeg, läbitud
+    maara_aeg()
+    root.protocol("WM_DELETE_WINDOW", close_program)
+    läbitud = True
+    #
+    if iga_päev_var.get() == 1:
+        kuupäeva_panek["state"] = "disabled"
+        try:
+            aratuse_aeg = aratuse_aeg.time()
+        except:
+            pass
+    else:
+        kuupäeva_panek["state"] = "normal"
+    print("switched")
+    print(aratuse_aeg)
+    
+
+def disable_event():
+    pass
+
+def close_program():
+    root.destroy()
+
+
+iga_päev_var = tk.IntVar()
+
 
 #kuvab aega
 clock_label = tk.Label(root)
@@ -35,8 +67,13 @@ aratuse_label = tk.Label(root)
 aratuse_label.pack()
 
 
+
 uus_kuuüäev_label = tk.Label(root, text="Uus kuupäev(dd:mm:yy): ", font=("Arial", 25))
 uus_kuuüäev_label.pack()
+
+#iga päeva vahetamise nupp
+iga_päev_checkbox = tk.Checkbutton(root, text='Iga päev?', variable=iga_päev_var, onvalue=1, offvalue=0, command=iga_päev_switch, font=("Arial", 25))
+iga_päev_checkbox.pack()
 
 #kuupäeva paneku text box
 kuupäeva_panek = tk.Entry(root, font=("Arial", 50))
@@ -59,15 +96,22 @@ aratuse_label.config(text=aratuse_aeg.strftime('%d-%m-%y %H:%M:%S'), font=("Aria
 
 #siin vahetatakse äratuse aega
 def maara_aeg():
-    global aratuse_aeg, läbitud
+    global aratuse_aeg, läbitud, iga_päev_var
 
     läbitud = False
+
+    #keelab kinni panemise
+    root.protocol("WM_DELETE_WINDOW", disable_event)
 
     aratuse_kell = kella_panek.get()
     aratuse_kuupäev = kuupäeva_panek.get()
     print(aratuse_kuupäev+" "+aratuse_kell)
-    aratuse_aeg = datetime.datetime.strptime(aratuse_kuupäev+" "+aratuse_kell, '%d-%m-%y %H:%M:%S')
-    aratuse_label.config(text=aratuse_aeg.strftime('%d-%m-%y %H:%M:%S'), font=("Arial", 50))
+    if iga_päev_var.get() == 1:
+        aratuse_aeg = datetime.datetime.strptime(aratuse_kell, '%H:%M:%S').time()
+        aratuse_label.config(text=aratuse_aeg.strftime('%H:%M:%S'), font=("Arial", 50))
+    else:
+        aratuse_aeg = datetime.datetime.strptime(aratuse_kuupäev+" "+aratuse_kell, '%d-%m-%y %H:%M:%S')
+        aratuse_label.config(text=aratuse_aeg.strftime('%d-%m-%y %H:%M:%S'), font=("Arial", 50))
 
 
 
@@ -93,22 +137,27 @@ def aratus_kontroll():
             issound = True
 
         if is_ül == False and läbitud == False:
+            #võtab matemaatika True/False väärtuse
             läbitud = matemaatika.matemaatika()
             is_ül = True
 
         if läbitud == True:
+
+            root.protocol("WM_DELETE_WINDOW", close_program)
+
             is_ül=False
             #jätab paneb heli None
             winsound.PlaySound(None , winsound.SND_ASYNC)
+            issound = False
             aratus_label.config(text="Sisesta uus äratus", font=("Arial",50))
             print("nüüd on läbi")
             
         
     elif läbitud != True:
         aratus_label.config(text="maga maga", font=("Arial",50))
-
-        issound = False
     root.after(1000, aratus_kontroll)
+
+        
 #Label kus kuvab, kas äratus, või mitte
 aratus_label = tk.Label(root, text="Sisesta äratus", font=("Arial", 50))
 aratus_label.pack()

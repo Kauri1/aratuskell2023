@@ -4,30 +4,39 @@ import random
 def matemaatika():
     root2 = tk.Tk()
 
+    def disable_event():
+        pass
+
+    root2.protocol("WM_DELETE_WINDOW", disable_event)
+
     with open("matemaatika.txt") as f:
-        
-        ülesanne = next(f)
-        for num, aline in enumerate(f, 2):
-            if random.randrange(num):
-                continue
-            ülesanne = aline
+        lines = f.readlines()
+        if lines:
+            ülesanded = (random.choices(lines, k = random.randint(3,5)))
 
-    ülesanne_l = ülesanne.split("= ")
+    for ülesanne in ülesanded:
+        print(ülesanne)
+        #leiab vastuse ja ülesande
+        ülesanne_l = ülesanne.split("= ")
 
-    ülesande_label = tk.Label(root2, text=ülesanne_l[0], font=("Arial",50))
-    ülesande_label.pack()
+        ülesande_label = tk.Label(root2, text=ülesanne_l[0], font=("Arial",50))
+        ülesande_label.pack()
 
-    vastuse_panek = tk.Entry(root2, font=("Arial",50))
-    vastuse_panek.pack()
+        vastuse_panek = tk.Entry(root2, font=("Arial",50))
+        vastuse_panek.pack()
 
-    result_variable = tk.BooleanVar()
+        result_variable = tk.BooleanVar()
+
 
     def kontrolli_vastust():
+        global ülesanded
         sisestatud = vastuse_panek.get()
         if sisestatud == ülesanne_l[1].strip():
             result_variable.set(True)
             root2.quit()
             root2.destroy()
+        else:
+            matemaatika()
             
 
 
