@@ -35,7 +35,6 @@ def typing():
     root2.bind("<KeyPress>",key_pressed)
     #root2.bind('<KeyRelease>',key_released)
 
-#kommenti
 
 
     root2.mainloop()
