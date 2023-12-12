@@ -3,7 +3,7 @@ import random
 
 def typing():
     root2 = tk.Tk()
-    root2.geometry('700x400')
+    root2.geometry('1000x600')
     
 #    root2.after(10000, )
 
@@ -23,19 +23,17 @@ def typing():
     
 
     def key_pressed(event):
-        global tähti_kirjutatud, aeg, split
-        tekst = tekst_parem_label['text']
-        tekst2 = tekst_vasak_label['text']
+        global tähti_kirjutatud, aeg
+        tekst = algne_tekst
         key = event.char
         print(key)
-        täht_label.config(text=tekst[0])
+        täht_label.config(text=tekst[tähti_kirjutatud])
         if key != "":
-            if tekst[0] == key:
-                täht_label.config(text=tekst[1])
-                tekst2+=tekst[0]
-                tekst_parem_label.config(text=tekst[1:])
-                tekst_vasak_label.config(text=tekst2)
+            if tekst[tähti_kirjutatud] == key:
+                täht_label.config(text=tekst[tähti_kirjutatud+1])
+                tekst_vasak_label.config(text=tekst[:tähti_kirjutatud+1])
                 tähti_kirjutatud += 1
+                print(tähti_kirjutatud)
                 #kui tekst saab otsa
                 if len(tekst) == 1:
                     result_variable.set(True)
@@ -75,29 +73,29 @@ def typing():
 #    tekst_parem_label = tk.Label(root2, text=algne_tekst, font=("Arial", 25), wraplength=1000, justify="left")
 #    tekst_parem_label.place(relx=0.5, rely=0.5, anchor=tk.NW)
 
-#    tekst_parem2_label = tk.Label(root2, text=algne_tekst, font=("Arial", 25), wraplength=1000, justify="left")
-#    tekst_parem2_label.place(relx=0, rely=0.5, anchor=tk.NW)
-#
-#    tekst_vasak_label = tk.Label(root2, text="", font=("Arial", 25), wraplength=1000, fg="green", justify="left")
-#    tekst_vasak_label.place(relx=0, rely=0.5, anchor=tk.NW)
+    tekst_parem_label = tk.Label(root2, text=algne_tekst, font=("consolas 30"), wraplength=1000, justify="left")
+    tekst_parem_label.place(relx=0, rely=0.3, anchor=tk.NW)
 
-    aeg_label = tk.Label(root2, font=("consolas 30"))
-    aeg_label.place(relx=0.4, rely=0.3, anchor=tk.E)
+    tekst_vasak_label = tk.Label(root2, text="", font=("consolas 30"), wraplength=1000, fg="green", justify="left")
+    tekst_vasak_label.place(relx=0, rely=0.3, anchor=tk.NW)
+
+    aeg_label = tk.Label(root2, font=("Arial", 25))
+    aeg_label.place(relx=0.4, rely=0.2, anchor=tk.E)
 
     #näitab kirjutamise kiirust
-    wpm_label = tk.Label(root2, font=("consolas 30"))
-    wpm_label.place(relx=0.6, rely=0.3, anchor=tk.W)
+    wpm_label = tk.Label(root2, font=("Arial", 25))
+    wpm_label.place(relx=0.6, rely=0.2, anchor=tk.W)
 
     #vasakule kalduv tekst
-    tekst_vasak_label = tk.Label(root2, text="", font=("consolas 30"), fg="green", bg="lightgray")
-    tekst_vasak_label.place(relx=0.5, rely=0.5, anchor=tk.E)
-
-
-    tekst_parem_label = tk.Label(root2, text=algne_tekst, font=("consolas 30"))
-    tekst_parem_label.place(relx=0.5, rely=0.5, anchor=tk.W)
-
-    täht_label = tk.Label(root2, text=algne_tekst[0], font=("consolas 30"))
-    täht_label.place(relx=0.5, rely=0.6, anchor=tk.N)
+#    tekst_vasak_label = tk.Label(root2, text="", font=("Arial", 25), fg="green", bg="lightgray")
+#    tekst_vasak_label.place(relx=0.5, rely=0.5, anchor=tk.E)
+#
+#
+#    tekst_parem_label = tk.Label(root2, text=algne_tekst, font=("Arial", 25))
+#    tekst_parem_label.place(relx=0.5, rely=0.5, anchor=tk.W)
+#
+    täht_label = tk.Label(root2, text=algne_tekst[0], font=("Arial", 25))
+    täht_label.place(relx=0.5, rely=0.8, anchor=tk.N)
 
     root2.bind("<KeyPress>",key_pressed)
 
