@@ -3,7 +3,7 @@ import random
 
 def typing():
     root2 = tk.Tk()
-    root2.geometry('700x400')
+    root2.geometry('900x500')
     
 #    root2.after(10000, )
 
@@ -90,14 +90,14 @@ def typing():
 
     #vasakule kalduv tekst
     tekst_vasak_label = tk.Label(root2, text="", font=("consolas 30"), fg="green", bg="lightgray")
-    tekst_vasak_label.place(relx=0.5, rely=0.5, anchor=tk.E)
+    tekst_vasak_label.place(relx=0.3, rely=0.5, anchor=tk.NE)
 
 
-    tekst_parem_label = tk.Label(root2, text=algne_tekst, font=("consolas 30"))
-    tekst_parem_label.place(relx=0.5, rely=0.5, anchor=tk.W)
+    tekst_parem_label = tk.Label(root2, text=algne_tekst, font=("consolas 30"), wraplength="500", justify="left")
+    tekst_parem_label.place(relx=0.3, rely=0.5, anchor=tk.NW)
 
     täht_label = tk.Label(root2, text=algne_tekst[0], font=("consolas 30"))
-    täht_label.place(relx=0.5, rely=0.6, anchor=tk.N)
+    täht_label.place(relx=0.2, rely=0.7, anchor=tk.N)
 
     root2.bind("<KeyPress>",key_pressed)
 
