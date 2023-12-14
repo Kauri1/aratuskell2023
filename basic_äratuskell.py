@@ -2,7 +2,7 @@ import tkinter as tk
 import datetime
 import winsound
 
-import matemaatika
+import matemaatika, typetest
 
 
 
@@ -47,6 +47,7 @@ def close_program():
     root.destroy()
 
 
+
 iga_päev_var = tk.IntVar()
 
 
@@ -88,6 +89,21 @@ kella_panek = tk.Entry(root, font=("Arial", 50))
 kella_panek.insert(0, current_time.strftime('%H:%M:%S'))
 kella_panek.pack()
 
+#Kumb ülesanne tuleb
+def kumb_ülesanne():
+    if valik.get() == 2:
+        return typetest.typing(kiiruse_valik.get())
+    else:
+        return matemaatika.matemaatika()
+
+valik = tk.IntVar()
+
+kas_matemaatika = tk.Radiobutton(root, text="Matemaatika", variable=valik, value=1)
+kas_matemaatika.pack(anchor=tk.W)
+kas_speed = tk.Radiobutton(root, text="Kirjutamine", variable=valik, value=2)
+kas_speed.pack(anchor=tk.W)
+kiiruse_valik = tk.Entry(root)
+kiiruse_valik.pack(anchor=tk.W)
 
 #äratuskella default value
 aratuse_aeg = current_time
@@ -137,8 +153,8 @@ def aratus_kontroll():
             issound = True
 
         if is_ül == False and läbitud == False:
-            #võtab matemaatika True/False väärtuse
-            läbitud = matemaatika.matemaatika()
+            #võtab ülesande True/False väärtuse
+            läbitud = kumb_ülesanne()
             is_ül = True
 
         if läbitud == True:
