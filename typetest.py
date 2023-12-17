@@ -14,6 +14,10 @@ def typing(kiirus1):
     root2 = tk.Tk()
     root2.geometry('900x500')
     
+    def disable_event():
+        pass
+
+    root2.protocol("WM_DELETE_WINDOW", disable_event)
 
     global aeg
     aeg = 0
@@ -23,7 +27,7 @@ def typing(kiirus1):
         aeg += 0.1
         cpm = round(tähti_kirjutatud/aeg*60, 2)
         aeg_label.config(text=round(aeg, 1))
-        wpm_label.config(text=str(cpm)+ "Tähte minutis")
+        wpm_label.config(text=str(cpm)+ " Tähte minutis")
         if aeg > 30 and cpm >= kiirus:
             result_variable.set(True)
             root2.quit()
@@ -33,19 +37,24 @@ def typing(kiirus1):
             tekst_vasak_label.config(text="")
             tähti_kirjutatud = 0
             aeg = 0
-            kiirus *= 0.8
+            kiirus *= 0.9
             kiirus_label.config(text=kiirus)
         root2.after(100, uuenda_aega)
     
     global tähti_kirjutatud
-#(tähti_kirjutatud+1)/aeg, tähti_kirjutatud+1, aeg)
     tähti_kirjutatud = 0
     
     global failid
     failid = 0
 
+    global aeg_käib
+    aeg_käib = False
+
     def key_pressed(event):
-        global tähti_kirjutatud, aeg, failid
+        global tähti_kirjutatud, aeg, failid, aeg_käib
+        if aeg_käib == False:
+            aeg_käib = True
+            uuenda_aega()
         tekst = tekst_parem_label['text']
         tekst2 = tekst_vasak_label['text']
         key = event.char
@@ -66,12 +75,14 @@ def typing(kiirus1):
             #kui failib
             else:
                 failid += 1
+                vea_label.config(text=str(failid)+"/5 viga")
                 if failid > 5:
                     tekst_parem_label.config(text=algne_tekst)
                     tekst_vasak_label.config(text="")
                     tähti_kirjutatud = 0
                     aeg = 0
                     failid = 0
+                    vea_label.config(text=str(failid)+"/5 viga")
     
     
     with open("typetest.txt", encoding="UTF-8") as f:
@@ -85,15 +96,21 @@ def typing(kiirus1):
     pealkiri_label = tk.Label(root2, text="Kirjuta sõnu kiirusega", font=("Arial", 25))
     pealkiri_label.pack()
 
+    #kui kiiresti peab kirjutama
     kiirus_label = tk.Label(root2, text=kiirus, font=("consolas 30"))
     kiirus_label.pack()
 
+    #mitu viga
+    vea_label = tk.Label(root2, text=str(failid)+"/5 viga" ,font=("consolas 30"))
+    vea_label.pack()
+
+
     aeg_label = tk.Label(root2, font=("consolas 30"))
-    aeg_label.place(relx=0.4, rely=0.3, anchor=tk.E)
+    aeg_label.place(relx=0.4, rely=0.35, anchor=tk.E)
 
     #näitab kirjutamise kiirust
     wpm_label = tk.Label(root2, font=("consolas 30"))
-    wpm_label.place(relx=0.6, rely=0.3, anchor=tk.W)
+    wpm_label.place(relx=0.5 , rely=0.35, anchor=tk.W)
 
 
 
@@ -110,8 +127,8 @@ def typing(kiirus1):
 
     root2.bind("<KeyPress>",key_pressed)
 
-    uuenda_aega()
 
     root2.mainloop()
 
     return result_variable.get()
+typing("")

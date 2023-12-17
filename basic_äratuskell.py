@@ -100,8 +100,13 @@ valik = tk.IntVar()
 
 kas_matemaatika = tk.Radiobutton(root, text="Matemaatika", variable=valik, value=1)
 kas_matemaatika.pack(anchor=tk.W)
+
 kas_speed = tk.Radiobutton(root, text="Kirjutamine", variable=valik, value=2)
 kas_speed.pack(anchor=tk.W)
+
+kiiruse_label = tk.Label(root, text="Kirjutamise kiirus sõna/min", font=("Arial", 10))
+kiiruse_label.pack(anchor=tk.W)
+#siin saab valida sõnade kiirust
 kiiruse_valik = tk.Entry(root)
 kiiruse_valik.pack(anchor=tk.W)
 
