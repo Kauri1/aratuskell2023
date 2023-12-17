@@ -131,4 +131,3 @@ def typing(kiirus1):
     root2.mainloop()
 
     return result_variable.get()
-typing("")
