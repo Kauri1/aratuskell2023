@@ -1,0 +1,1 @@
+python.exe .\basic_aratuskell.py
