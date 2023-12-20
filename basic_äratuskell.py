@@ -73,7 +73,7 @@ uus_kuuüäev_label = tk.Label(root, text="Uus kuupäev(dd:mm:yy): ", font=("Ari
 uus_kuuüäev_label.pack()
 
 #iga päeva vahetamise nupp
-iga_päev_checkbox = tk.Checkbutton(root, text='Iga päev?', variable=iga_päev_var, onvalue=1, offvalue=0, command=iga_päev_switch, font=("Arial", 25))
+iga_päev_checkbox = tk.Checkbutton(root, text='Kuupäev ei huvita', variable=iga_päev_var, onvalue=1, offvalue=0, command=iga_päev_switch, font=("Arial", 25))
 iga_päev_checkbox.pack()
 
 #kuupäeva paneku text box

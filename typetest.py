@@ -23,7 +23,7 @@ def typing(kiirus1):
     aeg = 0
 
     def uuenda_aega():
-        global aeg, tähti_kirjutatud, kiirus
+        global aeg, tähti_kirjutatud, kiirus, failid
         aeg += 0.1
         cpm = round(tähti_kirjutatud/aeg*60, 2)
         aeg_label.config(text=round(aeg, 1))
@@ -38,6 +38,7 @@ def typing(kiirus1):
             tähti_kirjutatud = 0
             aeg = 0
             kiirus *= 0.9
+            failid = 0
             kiirus_label.config(text=kiirus)
         root2.after(100, uuenda_aega)
     
@@ -122,8 +123,8 @@ def typing(kiirus1):
     tekst_parem_label = tk.Label(root2, text=algne_tekst, font=("consolas 30"), wraplength="600", justify="left")
     tekst_parem_label.place(relx=0.3, rely=0.5, anchor=tk.NW)
 
-    täht_label = tk.Label(root2, text=algne_tekst[0], font=("consolas 30"))
-    täht_label.place(relx=0.2, rely=0.7, anchor=tk.N)
+    täht_label = tk.Label(root2, text=algne_tekst[0], font=("consolas 60"))
+    täht_label.place(relx=0.15, rely=0.7, anchor=tk.N)
 
     root2.bind("<KeyPress>",key_pressed)
 
