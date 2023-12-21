@@ -39,7 +39,7 @@ def iga_päev_switch():
     print("switched")
     print(aratuse_aeg)
     
-
+#mida teha kinni paneku asemel
 def disable_event():
     pass
 
@@ -47,7 +47,7 @@ def close_program():
     root.destroy()
 
 
-
+#kuupäev ei huvita
 iga_päev_var = tk.IntVar()
 
 
@@ -106,6 +106,7 @@ kas_speed.pack(anchor=tk.W)
 
 kiiruse_label = tk.Label(root, text="Kirjutamise kiirus sõna/min", font=("Arial", 10))
 kiiruse_label.pack(anchor=tk.W)
+
 #siin saab valida sõnade kiirust
 kiiruse_valik = tk.Entry(root)
 kiiruse_valik.pack(anchor=tk.W)
@@ -124,6 +125,7 @@ def maara_aeg():
     #keelab kinni panemise
     root.protocol("WM_DELETE_WINDOW", disable_event)
 
+    #paneb uue äratuse aja
     aratuse_kell = kella_panek.get()
     aratuse_kuupäev = kuupäeva_panek.get()
     print(aratuse_kuupäev+" "+aratuse_kell)
@@ -148,6 +150,7 @@ läbitud = True
 #siin kontrollitakse, kas on äratus või mitte
 def aratus_kontroll():
     global issound, is_ül, läbitud
+    #kui on äratus
     if current_time > aratuse_aeg and läbitud == False:
         aratus_label.config(text="ääärraaatuuuss", font=("Arial",50))
         print("ääratuus")
@@ -173,7 +176,7 @@ def aratus_kontroll():
             aratus_label.config(text="Sisesta uus äratus", font=("Arial",50))
             print("nüüd on läbi")
             
-        
+    #kui pole veel äratus
     elif läbitud != True:
         aratus_label.config(text="maga maga", font=("Arial",50))
     root.after(1000, aratus_kontroll)

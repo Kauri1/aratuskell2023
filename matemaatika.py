@@ -9,6 +9,7 @@ def matemaatika():
 
     root2.protocol("WM_DELETE_WINDOW", disable_event)
 
+    #klass, kuna igat ülesannet tuleb kontrollida, klassiga lihtne mitmele ülesandele anda individuaalne isiksus
     class ülesanne:
         ülesanded = []
         def __init__(self, ülesanne):
@@ -68,7 +69,6 @@ def matemaatika():
     def kontrolli_vastust():
         õigesti = 0
         for entry, ül in zip(entries, ülesanne.ülesanded):
-            #print(entry.get(), ül.ülesanne[1])
 
             sisestatud = entry.get()
             vastus = ül.ülesanne[1].strip()

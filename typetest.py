@@ -51,18 +51,24 @@ def typing(kiirus1):
     global aeg_käib
     aeg_käib = False
 
+    #klahvi vajutus on event
     def key_pressed(event):
         global tähti_kirjutatud, aeg, failid, aeg_käib
+        #pane aeg käima
         if aeg_käib == False:
             aeg_käib = True
             uuenda_aega()
+        #võtab teksti, mis on hetkel ekraanil
         tekst = tekst_parem_label['text']
         tekst2 = tekst_vasak_label['text']
         key = event.char
         print(key)
         täht_label.config(text=tekst[0])
+        #ei tee midagi shift, ctrl... korral
         if key != "":
+            #kas täht on õige
             if tekst[0] == key:
+                #iga vajutusega, muudab vasaku teksti pikemaks, parema lühemaks
                 täht_label.config(text=tekst[1])
                 tekst2+=tekst[0]
                 tekst_parem_label.config(text=tekst[1:])
@@ -85,7 +91,7 @@ def typing(kiirus1):
                     failid = 0
                     vea_label.config(text=str(failid)+"/5 viga")
     
-    
+    #võtab suvalise teksti
     with open("typetest.txt", encoding="UTF-8") as f:
         lines = f.readlines()
         if lines:
@@ -126,6 +132,7 @@ def typing(kiirus1):
     täht_label = tk.Label(root2, text=algne_tekst[0], font=("consolas 60"))
     täht_label.place(relx=0.15, rely=0.7, anchor=tk.N)
 
+    #klahvi vajutus on event
     root2.bind("<KeyPress>",key_pressed)
 
 
